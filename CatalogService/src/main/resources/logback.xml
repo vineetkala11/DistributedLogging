@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>       
-     <include resource="org/springframework/boot/logging/logback/base.xml" />
+<configuration>
+    <property resource="application.properties" />       
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
     <appender name="AMQP" class="org.springframework.amqp.rabbit.logback.AmqpAppender">        
         <layout>            
             <pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>        
             </layout>        
             <exchangeName>log-exchange</exchangeName>        
-            <host>localhost</host>        
+            <host>rabbitmq</host>        
             <port>5672</port>        
             <username>guest</username>        
             <password>guest</password>        
@@ -16,6 +17,7 @@
             <generateId>true</generateId>        
             <charset>UTF-8</charset>        
             <durable>false</durable>        
+            <maxSenderRetries>2</maxSenderRetries>
             <deliveryMode>NON_PERSISTENT</deliveryMode>    
         </appender>    
           <root level="info">        

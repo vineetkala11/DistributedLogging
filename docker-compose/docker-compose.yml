@@ -1,62 +1,61 @@
 version: '3'
 services:
-  eureka-server:
-    image: "eureka-server"
+  rabbitmq:
+    image: "rabbitmq-mng"
     ports:
-      - "8761:8761"
+      - "15672:15672"
+      - "5672:5672"
     networks:
       my-network:
         aliases:
-          - eureka-server
-  zuul-gateway:
-    image: "gateway"
+          - rabbitmq
+  logstash:
+    image: "logstash"
+    ports:
+      - "9600:9600"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka
-      - HOST_NAME=zuul-gateway
-    ports:
-      - "8084:8084"
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - ELASTICSEARCH_HOST=els
+      - ELASTICSEARCH_PORT=9200
+      - LOG_EXCHANGE_NAME=log-exchange
+      - LOG_EXCHANGE_TYPE=direct
+      - LOG_QUEUE=center-log-queue
     depends_on:
-      - eureka-server
+      - "rabbitmq"
+      - "els"
     networks:
       my-network:
         aliases:
-          - zuul-gateway
-  catalog-data:
-    image: "catalog-data"
+          - logstash
+  els:
+    image: "elastic-search"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka
-      - REDIS_HOST=redis
-      - HOST_NAME=catalog-data
-    ports:
-      - "8000"
-    depends_on:
-      - eureka-server
-      - redis
+      - discovery.type=single-node
+      - cluster.name=es-cluster
+      - node.name=es-node-1
     networks:
       my-network:
         aliases:
-          - catalog-data
-  catalog-service:
-    image: "catalog-service"
+          - els
+  kibana:
+    image: "kibana"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka
-      - HOST_NAME=catalog-service
+      - KIBANA_SERVER_NAME="kibana"
+      - ELS_HOST=els
+      - ELS_PORT=9200
+      - KIBANA_SERVER_HOST=0.0.0.0
     ports:
-      - "8100"
+      - 5601:5601
     depends_on:
-      - eureka-server
+      - "els"
     networks:
       my-network:
         aliases:
-          - catalog-service
-  redis:
-    image: "myredis"
-    ports:
-      - "6379:6379"
-    networks:
-      my-network:
-        aliases:
-          - redis
+          - kibana
 networks:
     my-network:
         driver: bridge
