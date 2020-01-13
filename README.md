@@ -20,4 +20,4 @@
 In this project I have use Logback AmqpAppender to push service log to RabbitMQ Queue. LogStash pipeline configured to pull logs from RabbitMQ queue and push to ElasticSearch. Kibana is for display logs from ElasticSearch
 
 > Flow Digram
-![Flow diagram](/img/main.png)
+![Flow diagram](/img/main1.png)
