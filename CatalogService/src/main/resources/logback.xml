@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-    <property resource="application.properties" />       
+<configuration>    
     <include resource="org/springframework/boot/logging/logback/base.xml" />
     <appender name="AMQP" class="org.springframework.amqp.rabbit.logback.AmqpAppender">        
         <layout>            

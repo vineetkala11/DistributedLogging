@@ -1,18 +1,5 @@
 version: '3'
 services:
-  catalog-data:
-    image: "catalog-data-1"
-    environment:
-      - HOST_NAME=catalog-data
-      - rabbitmq.host=rabbitmq
-    ports:
-      - "8000:8000"
-    depends_on:
-      - "rabbitmq"
-    networks:
-      my-network:
-        aliases:
-          - catalog-data
   catalog-service:
     image: "catalog-service-1"
     environment:
