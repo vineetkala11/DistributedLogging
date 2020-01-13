@@ -1,4 +1,4 @@
-package com.example.service.feignClient;
+package com.example.service.restClient;
 
 import java.util.Arrays;
 import java.util.List;
