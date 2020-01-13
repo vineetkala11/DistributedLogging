@@ -3,7 +3,6 @@ services:
   catalog-data:
     image: "catalog-data-1"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka
       - HOST_NAME=catalog-data
       - rabbitmq.host=rabbitmq
     ports:
@@ -17,7 +16,6 @@ services:
   catalog-service:
     image: "catalog-service-1"
     environment:
-      - EUREKA_SERVER=http://eureka-server:8761/eureka
       - HOST_NAME=catalog-service
       - rabbitmq.host=rabbitmq
       - CATALOGDATA_HOST=http://catalog-data:8000
