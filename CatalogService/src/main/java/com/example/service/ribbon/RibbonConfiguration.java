@@ -1,4 +1,4 @@
-package com.example.service.ribbon;
+/*package com.example.service.ribbon;
 
 import org.springframework.context.annotation.Bean;
 
@@ -19,3 +19,4 @@ public class RibbonConfiguration {
 		return new WeightedResponseTimeRule();
 	}
 }
+*/

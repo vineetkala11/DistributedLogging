@@ -1,39 +1,13 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
-    <include resource="org/springframework/boot/logging/logback/base.xml" />
-
-    <appender name="amqp"
-        class="org.springframework.amqp.rabbit.logback.AmqpAppender">
-        <host>localhost</host>
-        <port>5672</port>
-        <virtualHost>/</virtualHost>
-        <username>guest</username>
-        <password>guest</password>
-        <exchangeType>direct</exchangeType>
-        <exchangeName>log-exchange</exchangeName>
-        <applicationId>catalog-data</applicationId>
-        <routingKeyPattern>center-log-queue</routingKeyPattern>
-        <contentType>text/plain</contentType>
-        <maxSenderRetries>2</maxSenderRetries>
-        <charset>UTF-8</charset>
-        <layout>
-            <pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>
-        </layout>
-    </appender>
-
-    <logger name="com.example" level="DEBUG">
-        <appender-ref ref="amqp" />
-    </logger>
-
-</configuration> -->
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>       
+<configuration>
+    <property resource="application.properties" />       
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
     <appender name="AMQP" class="org.springframework.amqp.rabbit.logback.AmqpAppender">        
         <layout>            
             <pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>        
             </layout>        
             <exchangeName>log-exchange</exchangeName>        
-            <host>localhost</host>        
+            <host>${rabbitmq.host}</host>        
             <port>5672</port>        
             <username>guest</username>        
             <password>guest</password>        
@@ -43,9 +17,10 @@
             <generateId>true</generateId>        
             <charset>UTF-8</charset>        
             <durable>false</durable>        
+            <maxSenderRetries>2</maxSenderRetries>
             <deliveryMode>NON_PERSISTENT</deliveryMode>    
         </appender>    
           <root level="info">        
-          <appender-ref ref="AMQP" />    
+            <appender-ref ref="AMQP" />    
           </root>
 </configuration>

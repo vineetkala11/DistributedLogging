@@ -1,66 +1,35 @@
 package com.example.catalog.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.example.catalog.model.CatalogDetail;
-import com.example.catalog.redis.CatalogCacheManager;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class CatalogService {
 
-	private CatalogCacheManager catalogCacheManager;
-
+	private  static final Logger log = LoggerFactory.getLogger(CatalogService.class); 
+	
 	@Autowired
 	private Environment env;
 	
-	@Autowired
-	CatalogService(CatalogCacheManager catalogCacheManager){
-		this.catalogCacheManager = catalogCacheManager;
-	}
 	
 	public List<CatalogDetail> getAllCatalogDetails(){
-		Map<Object, CatalogDetail> data = this.catalogCacheManager.getAllCatalogDetail();
-		if(null != data) {
-			log.info("No Data found in Redis");
-			return data.values().stream().collect(Collectors.toList());
-		}
+		log.info("Inside getAllCatalogDetails ");
 		List<CatalogDetail> dbData = dbCall(-1);
-		dbData.forEach(d -> this.catalogCacheManager.cacheCatalogDetails(d));
 		return dbData;
 	}
 	
 	public CatalogDetail getCatalogDetail(long id){
-		CatalogDetail data = this.catalogCacheManager.getCatalogDetail(id);
-		if(null != data) {
-			return data;
-		}
-		List<CatalogDetail> dbData = actingAsDbTable();
-		dbData.forEach(d -> this.catalogCacheManager.cacheCatalogDetails(d));
+		log.info("Inside getCatalogDetail for id : "+id);
+		List<CatalogDetail> dbData = dbCall(id);
 		return dbData.get(0);
-	}
-	
-	public void addData(CatalogDetail catalogDetails) {
-		this.catalogCacheManager.cacheCatalogDetails(catalogDetails);
-	}
-	
-	public void removeData(long id) {
-		this.catalogCacheManager.removeCatalogDetail(id);
-	}
-	
-	public void updateData(CatalogDetail catalogDetails) {
-		this.catalogCacheManager.cacheCatalogDetails(catalogDetails);
 	}
 	
 	

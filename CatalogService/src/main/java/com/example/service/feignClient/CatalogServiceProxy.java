@@ -1,21 +1,35 @@
 package com.example.service.feignClient;
 
+import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.service.model.CatalogDetail;
-import com.example.service.ribbon.RibbonConfiguration;
 
-import feign.Headers;
+@Service
+public class CatalogServiceProxy {
 
-@FeignClient(name="catalog-data")
-@RibbonClient(name="catalog-data", configuration = RibbonConfiguration.class)
-public interface CatalogServiceProxy {
-
-	@Headers("Content-Type: application/json")
-	@GetMapping("/catalog/getAllCatalog")
-    public List<CatalogDetail> getCatalogList();
+	@Value("${catalogdata.host}")
+	private String host;
+	
+	@Value("${catalogdata.getall}")
+	private String path;
+	
+	private RestTemplate restTemplate;
+	
+	@Autowired
+	public CatalogServiceProxy(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
+    public List<CatalogDetail> getCatalogList(){
+    	String uri = host+path; 
+    	ResponseEntity<CatalogDetail[]> responseEntity = restTemplate.getForEntity(uri, CatalogDetail[].class);
+    	CatalogDetail[] result = responseEntity.getBody();
+        return Arrays.asList(result);
+    }
 }

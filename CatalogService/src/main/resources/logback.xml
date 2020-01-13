@@ -7,12 +7,12 @@
             <pattern><![CDATA[ %d %p %t [%c] - <%m>%n ]]></pattern>        
             </layout>        
             <exchangeName>log-exchange</exchangeName>        
-            <host>rabbitmq</host>        
+            <host>${rabbitmq.host}</host>        
             <port>5672</port>        
             <username>guest</username>        
             <password>guest</password>        
             <exchangeType>direct</exchangeType>        
-            <applicationId>Catalog-Data</applicationId>        
+            <applicationId>Catalog-Service</applicationId>        
             <routingKeyPattern>center-log-queue</routingKeyPattern>        
             <generateId>true</generateId>        
             <charset>UTF-8</charset>        

@@ -3,29 +3,31 @@ package com.example.service.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.service.feignClient.CatalogServiceProxy;
 import com.example.service.model.CatalogDetail;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class CatalogService {
 
+	private  static final Logger log = LoggerFactory.getLogger(CatalogService.class);  
+	
 	@Autowired
 	private CatalogServiceProxy serviceProxy;
 	
-	@HystrixCommand(fallbackMethod="fallback", commandProperties = {
-			   @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "30000")
-	})
 	public List<CatalogDetail> getCatalogUsingRestTemplate(){
+		List<CatalogDetail> details = null;
 		log.info("Inside CatalogService, calling catalog-data service");
-		List<CatalogDetail> details = serviceProxy.getCatalogList();
+		try {
+			details = serviceProxy.getCatalogList();
+		}catch(Exception e) {
+			
+			details = fallback();
+		}
 		return details;
 	}
 	
