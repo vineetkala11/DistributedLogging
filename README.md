@@ -20,12 +20,13 @@
 In this project I have use Logback AmqpAppender to push service log to RabbitMQ Queue. LogStash pipeline configured to pull logs from RabbitMQ queue and push to ElasticSearch. Kibana is for display logs from ElasticSearch
 
 > Flow Digram
-![Flow diagram](/img/main1.png)
+![Flow diagram](/img/main2.png)
 
 ## Project Setup
 
 Before start we need to compile and create docker images of every module, follow below command sequentially.
-**Note: Make sure you have Maven path set at envirnment and docker is up and running *
+
+    **Note: Make sure you have Maven path set at envirnment and docker is up and running *
 
 ```
     cd CatalogData
