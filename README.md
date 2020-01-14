@@ -21,3 +21,30 @@ In this project I have use Logback AmqpAppender to push service log to RabbitMQ 
 
 > Flow Digram
 ![Flow diagram](/img/main1.png)
+
+## Project Setup
+
+Before start we need to compile and create docker images of every module, follow below command sequentially.
+**Note: Make sure you have Maven path set at envirnment and docker is up and running *
+
+```
+    cd CatalogData
+    mvn clean install -Drabbitmq.host=localhost
+    docker build -t catalog-data-1 .
+
+    cd CatalogService
+    mvn clean install -Drabbitmq.host=localhost
+    docker build -t catalog-service-1 .
+
+    cd rabbitmq
+    docker build -t rabbitmq-mng .
+
+    cd logstash
+    docker build -t logstash .
+
+    cd es
+    docker build -t elastic-search .
+
+    cd kibana
+    docker build -t kibana .
+```
