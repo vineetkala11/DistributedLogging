@@ -17,7 +17,7 @@
 
 ## Project Explanation
 
-In this project I have use Logback AmqpAppender to push service log to RabbitMQ Queue. LogStash pipeline configured to pull logs from RabbitMQ queue and push to ElasticSearch. Kibana is for display logs from ElasticSearch
+In this project I have use Logback AmqpAppender to push service log over RabbitMQ Queue. LogStash pipeline configured to pull logs from RabbitMQ queue and push to ElasticSearch. Kibana is for display logs from ElasticSearch
 
 > Flow Digram
 ![Flow diagram](/img/main2.png)
@@ -52,7 +52,9 @@ Before start we need to compile and create docker images of every module, follow
 
 use below command to verify all six docker images we just created - 
 
-*docker images*
+```
+    docker images
+```
 
 we are now done with the initial setup.
 
@@ -77,4 +79,14 @@ Once you successful login into RabbitMQ Managment UI, you need to create new Exc
 [![RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message](/img/rabbitmq-setup.png)](https://www.youtube.com/watch?v=OP2MjpYY5Oc "RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message")
 
 **Note : Replace name of Exchange and queue from given video - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue"*
+
+Once you are done with RabbitMQ Exchange and Queue setup, stop docker-compose (Ctrl c) and restart it again. Verify, this time catalog-data-1 and catalog-service-1 successfully connected with RabbitMQ Exchange.
+
+## Check logs in Kibana
+
+Now time to check logs in kibana, kibana is already up and running at port "5601". Open below url on browser to view Kibana UI.
+
+```
+    http://localhost:5601
+```
 
