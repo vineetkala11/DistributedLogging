@@ -26,7 +26,7 @@ In this project I have use Logback AmqpAppender to push service log to RabbitMQ 
 
 Before start we need to compile and create docker images of every module, follow below command sequentially.
 
-    **Note: Make sure you have Maven path set at envirnment and docker is up and running *
+    **Note: Make sure you have Maven path set at envirnment and docker is up and running*
 
 ```
     cd CatalogData
@@ -50,7 +50,7 @@ Before start we need to compile and create docker images of every module, follow
     docker build -t kibana .
 ```
 
-verify all six docker images we just created - 
+use below command to verify all six docker images we just created - 
 
 *docker images*
 
@@ -73,7 +73,7 @@ To setup new exchange we take help from RabbitMQ Managment, keep docker-compose 
 
 I found good video over youtube for setting up RabbitMQ Exchange and queue, follow the instructions as given in below video.
 
-    **Note : Change name of Exchange and queue as - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue" *
+    **Note : Change name of Exchange and queue as - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue"*
 
 
 [![RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message](/img/rabbitmq-setup.png)](https://www.youtube.com/watch?v=OP2MjpYY5Oc "RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message")
