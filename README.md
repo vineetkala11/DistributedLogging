@@ -58,22 +58,23 @@ we are now done with the initial setup.
 
 ## RabbitMQ Exchange and Queue setup
 
-Now we need to setup RabbitMQ Exchange and Queue where our services will push there logs. Follow below commands
+Now we need to setup RabbitMQ Exchange and Queue, where our services will push there logs. Follow below commands
 
 ```
     cd docker-compose
     docker-compose up
 ```
 
-"docker-compose up" starts all six containers, on console logs we can see catalog-data-1 and catalog-service-1 unable to make connection with RabbitMQ Exchange "log-exchange", its becuase we didn't create any Exchage till now.
+"docker-compose up" starts all six containers, on console logs you can see catalog-data-1 and catalog-service-1 unable to make connection with RabbitMQ Exchange "log-exchange", its becuase we didn't create any Exchage till now.
 
-To setup new exchange we take help from RabbitMQ Managment, keep docker-compose window up and running and open below url in your browser. Default user/password is guest/guest -  
+To setup new exchange we take help of RabbitMQ Managment UI, keep docker-compose window up and running and open below url in your browser. To login into RabbitMQ Managment UI use user as "guest" and password as "guest" (its a default user/password) -  
 
 *http://localhost:15672/*
 
-I found good video over youtube for setting up RabbitMQ Exchange and queue, follow the instructions as given in below video.
+Once you successful login into RabbitMQ Managment UI, you need to create new Exchange and Queue, and the bind Queue with the Exchange. I found good video over youtube for setting up RabbitMQ Exchange and queue, follow these instructions as given in below video.
 
 
 [![RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message](/img/rabbitmq-setup.png)](https://www.youtube.com/watch?v=OP2MjpYY5Oc "RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message")
 
-**Note : Replace name of Exchange and queue from give video - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue"*
+**Note : Replace name of Exchange and queue from given video - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue"*
+
