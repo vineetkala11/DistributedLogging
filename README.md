@@ -49,3 +49,31 @@ Before start we need to compile and create docker images of every module, follow
     cd kibana
     docker build -t kibana .
 ```
+
+verify all six docker images we just created - 
+
+*docker images*
+
+we are now done with the initial setup.
+
+## RabbitMQ Exchange and Queue setup
+
+Now we need to setup RabbitMQ Exchange and Queue where our services will push there logs. Follow below commands
+
+```
+    cd docker-compose
+    docker-compose up
+```
+
+"docker-compose up" starts all six containers, on console logs we can see catalog-data-1 and catalog-service-1 unable to make connection with RabbitMQ Exchange "log-exchange", its becuase we didn't create any Exchage till now.
+
+To setup new exchange we take help from RabbitMQ Managment, keep docker-compose window up and running and open below url in your browser. Default user/password is guest/guest -  
+
+    *http://localhost:15672/*
+
+I found good video over youtube for setting up RabbitMQ Exchange and queue, follow the instructions as given in below video.
+
+    **Note : Change name of Exchange and queue as - "TestExchange" with "log-exchange" and "TestQueue" with "center-log-queue" *
+
+
+[![RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message](/img/rabbitmq-setup.png)](https://www.youtube.com/watch?v=OP2MjpYY5Oc "RabbitMQ - Creating Queue, Exchange and Binding and Publishing Message")
