@@ -92,7 +92,9 @@ Below screen you will see -
 
 ![Kibana Home](/img/kibana-1.png)
 
+
 To check incomming logs from RabitMQ through logstach, click on Discover tab (top left), as shown in below image -
+
 
 ![Kibana Home](/img/kibana-2.png)
 
