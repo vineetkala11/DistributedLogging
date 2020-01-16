@@ -86,7 +86,14 @@ Once you are done with RabbitMQ Exchange and Queue setup, stop docker-compose (C
 
 Now time to check logs in kibana, kibana is already up and running at port "5601". Open below url on browser to view Kibana UI.
 
-```
-    http://localhost:5601
-```
+*http://localhost:5601*
 
+Below screen you will see -
+
+![Kibana Home](/img/kibana-1.png)
+
+To check incomming logs from RabitMQ through logstach, click on Discover tab (top left), as shown in below image -
+
+![Kibana Home](/img/kibana-2.png)
+
+You can eaisly indetify your application startup logs in kibana dashboard.
