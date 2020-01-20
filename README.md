@@ -98,4 +98,9 @@ To check incomming logs from RabitMQ through logstach, click on Discover tab (to
 
 ![Kibana Home](/img/kibana-2.png)
 
-You can eaisly indetify your application startup logs in kibana dashboard.
+You can eaisly indentify your application startup logs in kibana dashboard.
+
+- Now I hit below rest endpoint, exposed in catalog-service-1 (catalog-service-1 internally access catalog-data-1 through rest api) 
+
+*http://localhost:8100/service/fetchCatalog*
+
